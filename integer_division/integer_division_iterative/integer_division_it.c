@@ -12,16 +12,14 @@ typedef struct {
 	Postconditions: returns q,r so that a = b*q + r
 		and 0 <= r < b
 */
-integer_division_result div_rec(int a, int b) 
+integer_division_result div_it(int a, int b) 
 {
 	integer_division_result res;
+	res.r = a;
+	res.q = 0;
 	
-	if(a < b) {
-		res.q = 0;
-		res.r = a;
-	}
-	else {
-		res = div_rec(a-b, b);
+	while(res.r >= b) {
+		res.r = res.r - b;
 		res.q = res.q + 1;
 	}
 
@@ -34,7 +32,7 @@ int main()
 	int b = 4;
 	integer_division_result result;
 
-	result = div_rec(a,b);
+	result = div_it(a,b);
 
-	printf("Integer Division of %i / %i as quotient %i and reminder %i\n", a, b, result.q, result.r);
+	printf("Integer Division of %i / %i has quotient %i and reminder %i\n", a, b, result.q, result.r);
 }
