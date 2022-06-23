@@ -29,21 +29,22 @@ int main(int argc, char const *argv[])
 {
 	srand(time(NULL));
 
-	int lenght = 5;
-	int A[lenght];
+	int i = 0, length = 5;
+	int A[length];
 
 	// binary search wants an ordered array as input
 	printf("Creating array...\n");
-	for(int i = 0; i < lenght; i++) {
-		A[i] = i*lenght;
+	for(i = 0; i < length; i++) {
+		A[i] = i*length;
 		printf("- %i\n", A[i]);
 	}
 
 	//int x = 10; // found
 	//int x = 5; // found
-	int x = 7; // not found
+	//int x = 7; // not found
+	int x = A[i-1]; // found
 
-	printf("\n\nSearching element %i in array A: %s\n", x, (binary_search_rec(x,A,0,lenght)==1 ? "found": "not found"));
+	printf("\n\nSearching element %i in array A: %s\n", x, (binary_search_rec(x,A,0,length-1)==1 ? "found": "not found"));
 
 	return 0;
 }
