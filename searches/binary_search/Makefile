@@ -3,3 +3,6 @@ binary_search: binary_search.c
 
 clean: 
 	$(RM) binary_search
+
+run: clean binary_search
+	./binary_search
