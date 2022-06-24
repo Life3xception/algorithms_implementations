@@ -4,7 +4,7 @@
 
 /*
 	Insertion Sort on the array A
-	Preconditions: 
+	Preconditions: length = length(A)
 	Postconditions: A[0...n-1] is ordered
 */
 void insertion_sort(int A[], int length)
