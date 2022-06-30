@@ -43,17 +43,17 @@ int partition_first_element(int A[], int start, int end)
 	using as pivot the first element of the given segment.
 	Prerequisites: 0 <= start <= end, end = length(A)-1
 */
-void quick_sort(int A[], int start, int end, int call_count)
+void quick_sort(int A[], int start, int end)
 {
 	if(end > start) {
 		int p = partition_first_element(A, start, end); // after partitioning, pivot is at 
 											      		// index p in A
 
 		if(p > start)
-			quick_sort(A,start,p-1, ++call_count);
+			quick_sort(A,start,p-1);
 		
 		if(p < end-1)
-			quick_sort(A,p+1,end, ++call_count);
+			quick_sort(A,p+1,end);
 	}
 }
 
@@ -74,7 +74,7 @@ int main(int argc, char const *argv[])
 
 	printf("\nSorting array...\n\n");
 
-	quick_sort(A,0,length-1, 0);
+	quick_sort(A,0,length-1);
 
 	printf("Printing ordered array:\n");
 	for(i = 0; i < length; i++) {
