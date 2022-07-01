@@ -21,4 +21,4 @@ bin/static_array_tests: build/static_array_tests.o build/static_array.o $(UNITY_
 
 clean:
 	$(RM) bin/*
-	$(RM) bin/*
+	$(RM) build/*
