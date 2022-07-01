@@ -3,12 +3,12 @@
 
 struct _StaticArray {
   int **array;
-  size_t size;
-  size_t array_capacity;
+  long unsigned size;
+  long unsigned capacity;
   int is_ordered;
 };
 
-StaticArray *static_array_create(int is_ordered, size_t capacity)
+StaticArray *static_array_create(int is_ordered, long unsigned capacity)
 {
   if(is_ordered != 0 && is_ordered != 1) {
     fprintf(stderr, "%s\n", "static_array_create: is_ordered must be a boolean value");
@@ -58,7 +58,7 @@ int *static_array_insert(StaticArray *static_array, int *element)
     return NULL;
   }
 
-  if(static_array->size <= static_array->capacity) {
+  if(static_array->size < static_array->capacity) {
     if(static_array->is_ordered) {
       // ordered insertion in the array
       static_array->array[static_array->size] = element;
@@ -113,7 +113,7 @@ int *static_array_remove(StaticArray *static_array, int *element)
 // internal
 int static_array_binary_search(StaticArray *static_array, int *element)
 {
-  int l = 1, h = (int)static_array->size;
+  int l = 0, h = (int)static_array->size-1;
   while(l <= h) {
     int m = (int)floor((l+h)/2);
     if(*(static_array->array[m]) == *element) {
@@ -229,17 +229,20 @@ int *static_array_predecessor(StaticArray *static_array, int *element)
     }
 
     // we assume that duplicated keys are not present in the array
-    return static_array->array[pos-1];
+    if(pos > 0)
+      return static_array->array[pos-1];
+    else // there isn't a predecessor in the array
+      return NULL;
   }
   else {
     // we have to search for all the keys lower than the element 
     // and than return the maximum of that keys.
     int *max = NULL;
     for(int i = 0; i < (int)static_array->size; i++) {
-      if(*(static_array->array[i]) > *element) {
+      if(*(static_array->array[i]) < *element) {
         if(max == NULL) // first key lower than element
           max = static_array->array[i];
-        else if(*(static_array->array[i]) < *max)
+        else if(*(static_array->array[i]) > *max)
           max = static_array->array[i];
       }
     }
@@ -268,7 +271,10 @@ int *static_array_successor(StaticArray *static_array, int *element)
     }
 
     // we assume that duplicated keys are not present in the array
-    return static_array->array[pos+1];
+    if(pos < (int)static_array->size-1)
+      return static_array->array[pos+1];
+    else // there isn't a successor in the array
+      return NULL;
   }
   else {
     // we have to search for all the keys bigger than the element 
@@ -289,7 +295,7 @@ int *static_array_successor(StaticArray *static_array, int *element)
 
 StaticArray *static_array_free(StaticArray *static_array)
 {
-  free(static_array->array)
+  free(static_array->array);
   free(static_array);
   return NULL;
 }
@@ -322,4 +328,16 @@ int static_array_is_empty(StaticArray *static_array)
   }
 
   return (static_array->size == 0);
+}
+
+void static_array_print(StaticArray *static_array)
+{
+  if(static_array == NULL) {
+    fprintf(stderr, "%s\n", "static_array_print: static_array cannot be NULL");
+  }
+
+  printf("\nPrinting static array...\n");
+  for(long unsigned i = 0; i < static_array->size; i++)
+    printf("\t- %i\n", *(static_array->array[i]));
+  printf("\n");
 }

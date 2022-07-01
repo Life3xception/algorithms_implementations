@@ -12,7 +12,7 @@ typedef struct _StaticArray StaticArray;
  * @param capacity: the maximum number of elements in the array
  * @return the pointer to the static array
  */
-StaticArray *static_array_create(int is_ordered, size_t capacity);
+StaticArray *static_array_create(int is_ordered, long unsigned capacity);
 
 /*
  * Method that inserts the element in the static array. 
@@ -107,4 +107,10 @@ int static_array_is_ordered(StaticArray *static_array);
  */
 int static_array_is_empty(StaticArray *static_array);
 
+/*
+ * Method that prints the static array to stdout. 
+ * Time complexity: O(N)
+ * @param static_array: the pointer to the static array
+ */
+void static_array_print(StaticArray *static_array);
 #endif /* STATIC_ARRAY_H */
