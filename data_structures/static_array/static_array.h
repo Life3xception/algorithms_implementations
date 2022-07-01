@@ -21,7 +21,7 @@ StaticArray *static_array_create(int is_ordered, long unsigned capacity);
  * @param element: the pointer to the element to insert
  * @return the pointer to the element if the insertion is successful, NULL otherwise
  */
-int * static_array_insert(StaticArray *static_array, int *element);
+int *static_array_insert(StaticArray *static_array, int *element);
 
 /*
  * Method that removes the element from the static array. 
