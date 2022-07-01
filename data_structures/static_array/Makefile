@@ -1,0 +1,24 @@
+CFLAGS				= -g -O1 -Wall -Wextra -Wpedantic -Wconversion
+COMMON_DEPS			= static_array.h Makefile
+UNITY_BIN			= ../../lib/unity.o
+
+# rule to make file for testing and finally runs tests
+run_tests: tests
+	./bin/static_array_tests
+
+create_dir: 
+	mkdir -p bin
+	mkdir -p build
+
+# rule to make file for testing
+tests: create_dir bin/static_array_tests
+
+build/%.o: %.c $(COMMON_DEPS)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+bin/static_array_tests: build/static_array_tests.o build/static_array.o $(UNITY_BIN) $(COMMON_DEPS)
+	$(CC) -o bin/static_array_tests build/static_array_tests.o $(UNITY_BIN) build/static_array.o
+
+clean:
+	$(RM) bin/*
+	$(RM) bin/*
