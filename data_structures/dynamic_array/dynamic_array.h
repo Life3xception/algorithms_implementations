@@ -79,7 +79,7 @@ int *dynamic_array_successor(DynamicArray *dynamic_array, int *element);
  * Method that free the space occupied by the dynamic array. 
  * Time complexity: O(1)
  * @param dynamic_array: the pointer to the dynamic array
- * @return NULL if the free fails (??)
+ * @return NULL 
  */
 DynamicArray *dynamic_array_free(DynamicArray *dynamic_array);
 
